@@ -19,8 +19,8 @@ public class AppointmentService {
     @Autowired
     private PatientClient patientClient;
 
-    @Autowired
-    private DoctorClient doctorClient;   // 🔥 availability ke liye REQUIRED
+    //@Autowired
+    //private DoctorClient doctorClient;   // 🔥 availability ke liye REQUIRED
 
     @Autowired
     private AppointmentRepository repository;
@@ -34,21 +34,21 @@ public class AppointmentService {
         patientClient.checkPatient(appointment.getPatientId());
 
         // 2️⃣ Doctor exist check
-        doctorClient.checkDoctor(appointment.getDoctorId());
-
-        // 3️⃣ Doctor availability check
-        ApiResponse<Boolean> availabilityResponse =
-                doctorClient.isDoctorAvailable(
-                        appointment.getDoctorId(),
-                        appointment.getAppointmentDate().toString(),
-                        appointment.getAppointmentTime().toString()
-                );
-
-        if (availabilityResponse == null || !Boolean.TRUE.equals(availabilityResponse.getData())) {
-            throw new IllegalArgumentException(
-                    "Doctor not available at selected date and time"
-            );
-        }
+//        doctorClient.checkDoctor(appointment.getDoctorId());
+//
+//        // 3️⃣ Doctor availability check
+//        ApiResponse<Boolean> availabilityResponse =
+//                doctorClient.isDoctorAvailable(
+//                        appointment.getDoctorId(),
+//                        appointment.getAppointmentDate().toString(),
+//                        appointment.getAppointmentTime().toString()
+//                );
+//
+//        if (availabilityResponse == null || !Boolean.TRUE.equals(availabilityResponse.getData())) {
+//            throw new IllegalArgumentException(
+//                    "Doctor not available at selected date and time"
+//            );
+//        }
 
         // 4️⃣ Slot clash check (extra safety)
         boolean alreadyBooked =

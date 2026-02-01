@@ -27,8 +27,14 @@ public class JWTUtil {
                 .getBody();
     }
 
+
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
+    }
+
+
+    public Long extractUserId(String token) {
+        return extractAllClaims(token).get("userId", Long.class);
     }
 
     @SuppressWarnings("unchecked")
